@@ -18,12 +18,12 @@ return array(
         'application.components.*',
     ),
 
-    'modules' => array(// uncomment the following to enable the Gii tool
-        'gii'=>array(
-            'class'=>'system.gii.GiiModule',
-            'password'=>false,
+    'modules' => array( // uncomment the following to enable the Gii tool
+        'gii' => array(
+            'class' => 'system.gii.GiiModule',
+            'password' => false,
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
-            'ipFilters'=>array('127.0.0.1','::1'),
+            'ipFilters' => array('127.0.0.1', '::1'),
         ),
     ),
 
@@ -43,12 +43,31 @@ return array(
                 '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
             ),
         ),
+        */
+        'urlManager' => array(
+            'urlFormat' => 'path',
+            'rules' => array(
+                /*
+                'project/<id:\d+>/<title:.*?>'=>'project/view',
+                'projects/<tag:.*?>'=>'project/index',
+                */
+                // REST patterns
+                array('api/list',   'pattern' => 'api/<model:\w+>', 'verb' => 'GET'),
+                array('api/view',   'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'GET'),
+                array('api/update', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'PUT'),
+                array('api/delete', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'DELETE'),
+                array('api/create', 'pattern' => 'api/<model:\w+>', 'verb' => 'POST'),
+                // Other controllers
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ),
+        ),
+        /*
         'db' => array(
             'connectionString' => 'sqlite:' . dirname(__FILE__) . '/../data/testdrive.db',
         ),
         */
         // uncomment the following to use a MySQL database
-        'db'=>array(
+        'db' => array(
             'connectionString' => 'mysql:host=localhost;dbname=yiirestful',
             'emulatePrepare' => true,
             'username' => 'root',
